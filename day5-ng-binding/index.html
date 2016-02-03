@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+<head>
+  <style>
+    i {
+      margin-left: 90px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      width: 40px;
+      height: 40px;
+      padding: 0px;
+      -ms-transform: scale(5,5); /* IE 9 */
+      -webkit-transform: scale(5,5); /* Safari */
+      transform: scale(5,5); /* Standard syntax */
+    }
+  body {
+    background-image: url(http://3.bp.blogspot.com/-6LnKYe_RwDc/Uff4fgLXVcI/AAAAAAAAVtg/qKfjQ5ZkOl4/s1600/PolkaOrange24.png);
+    /*background-color: #cccccc;*/
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    font-family: Lato;
+    color: #000000;
+    font-size: 20;
+    padding: 6;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+
+<p>EMOJI CALCULATOR</p>
+
+<div data-ng-app="myApp" data-ng-controller="myCtrl" ng-init="pre='em em-';">
+
+Quantity: <input type="number" ng-model="person.quantity">
+Costs: <input type="number" ng-model="person.price">
+
+<p><b>Total in dollar:</b> {{person.quantity*person.price}}</p>
+<p>{{getClassName()}}<p>
+
+<i class={{pre+getClassName()[0]}}></i>
+<i class={{pre+getClassName()[1]}}></i>
+<i class={{pre+getClassName()[2]}}></i>
+<i class={{pre+getClassName()[3]}}></i>
+<i class={{pre+getClassName()[4]}}></i>
+
+</div>
+
+<p>#AngularJS #ng-binding</p>
+<script>
+  var app = angular.module("myApp", []);
+  app.controller("myCtrl", function($scope) {
+    $scope.person = {
+      quantity: 2,
+      price: 30,
+    }
+    $scope.getClassName = function(){
+      var x = $scope.person;
+      var myArray = x.quantity*x.price;
+      myArray = myArray.toString().split("");
+
+    for(var j=0; j<myArray.length; j++){
+      myArray[j] = parseInt(myArray[j], 10);
+    }
+    for(var i=0; i<myArray.length; i++){
+      switch (myArray[i]) {
+        case 0:
+          myArray[i] = 'zero';
+          break;
+        case 1:
+          myArray[i] = 'one';
+          break;
+        case 2:
+          myArray[i] = 'two';
+          break;
+        case 3:
+          myArray[i] = 'three';
+          break;
+        case 4:
+          myArray[i] = 'four';
+          break;
+        case 5:
+          myArray[i] = 'five';
+          break;
+        case 6:
+          myArray[i] = 'six';
+          break;
+        case 7:
+          myArray[i] = 'seven';
+          break;
+        case 8:
+          myArray[i] = 'eight';
+          break;
+        case 9:
+          myArray[i] = 'nine';
+          break;
+      }
+    }
+  return myArray;
+  }
+});
+</script>
+</body>
+</html>
