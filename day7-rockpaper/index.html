@@ -1,0 +1,117 @@
+<html>
+<head>
+  <script src="shake.js"></script>
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+  <style>
+    i#emojiYou {
+      margin-left: 380px;
+      margin-top: 200px;
+      margin-right: 200px;
+      margin-bottom: 100px;
+      padding: 0px;
+      -ms-transform: rotate(-45deg) scale(3,3); /* IE 9 */
+      -webkit-transform: rotate(-45deg) scale(3,3); /* Chrome, Safari, Opera */
+      transform: rotate(-45deg) scale(3,3);
+    }
+    i#emojiMe {
+      margin-left: 100px;
+      margin-top: 0px;
+      margin-right: -100px;
+      margin-bottom: 250px;
+      padding: 0px;
+      -ms-transform: rotate(135deg) scale(2.5,2.5); /* IE 9 */
+      -webkit-transform: rotate(135deg) scale(2.5,2.5); /* Chrome, Safari, Opera */
+      transform: rotate(135deg) scale(2.5,2.5);
+    }
+  body {
+
+    background-color: #8883c7;
+background-image: url("http://www.transparenttextures.com/patterns/food.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+    font-family: Lato;
+    color: #000000;
+    font-size: 38;
+    padding: 6;
+    text-align: left;
+  }
+  #result{
+    margin-left: 260px;
+    text-decoration: underline;
+    font-size: 42;
+  }
+  #result2{
+    text-decoration: underline;
+    font-size: 42;
+  }
+  #result0{
+    text-decoration: underline;
+    font-size: 52;
+  }
+  
+</style>
+
+</head>
+<body>
+  <p>Play Rock Paper Scissor with Me!</p>
+  <button onclick="myFunction()">Click me</button>
+  <div id="hand" class="hand hand-animate"></div> 
+  <!-- <div id="result"></div> -->
+  <div id="result2"></div>
+  <i id='emojiMe'></i>
+  <i id='emojiYou'></i>
+  <div id="result"></div>
+  <div id="result0"></div>
+  <script>
+  function myFunction() {
+    var result = document.getElementById("result");
+    result.className = "result";
+    var arr = ['v', 'hand', 'fist'];
+    var arr2 = ['scissor', 'paper', 'rock'];
+    var num = Math.floor(Math.random()*3);
+    result.innerHTML = "You gave "+arr2[num]+".";
+
+    document.getElementById("emojiYou").className = "em em-"+arr[num];
+
+    var result2 = document.getElementById("result2");
+    result2.className = "result2";
+    var num2 = Math.floor(Math.random()*3);
+    result2.innerHTML = "I gave "+arr2[num2]+".";
+
+    var result0 = document.getElementById("result0");
+    result0.className = "result0";
+
+    if(num===num2){
+      result0.innerHTML = "Let's try again...";
+    }
+    else if(num===0 && num2===2){
+      result0.innerHTML ="You lost!";
+    }
+    else if(num===0 && num2===1){
+      result0.innerHTML = "You won!";
+    }
+    else if(num===1 && num2===0){
+      result0.innerHTML = "You lost!";
+    }
+    else if(num==1 && num2==2){
+      result0.innerHTML = "You won!";
+    }
+    else if(num==2 && num2==1){
+      result0.innerHTML = "You lost!";
+    }
+    else if(num==2 && num2==0){
+      result0.innerHTML = "You won!";
+    }
+    document.getElementById("emojiMe").className = "em em-"+arr[num2];
+    setTimeout(function(){
+            result.className = "result result-show";
+            result2.className = "result2 result2-show";
+            result0.className = "result0 result0-show";
+        }, 1000);
+  }
+  </script>
+</body>
+</html>
