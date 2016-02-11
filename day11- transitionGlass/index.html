@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <style>
+  body {
+    background-color: hsl(195, 100%, 50%);
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    font-family: Lato;
+    color: #000000;
+    font-size: 20;
+    padding: 6;
+    text-align: left;
+  }
+</style>
+
+</head>
+<body data-ng-app="" style="background-color: hsl(195, 100%, {{name}}%)">
+
+<h3>Transition Glasses</h3>
+
+<input type="range" id="myRange" ng-model="name" value="{{name}}">
+
+<p>{{name}}</p>
+
+<img ng-show="name>=50" src="202.png">
+<img ng-show="name<50" class="ng-hide" src="201.png">
+<img src="sunglasses.png" ng-style="{'opacity' : name/100}"style="width: 110px; position: absolute; left: 198px; 
+top:195px;">
+<img src="glasses.png" style="z-index:2; width: 110px; position: absolute; left: 198px; 
+top:195px;">
+
+</body>
+</html>
