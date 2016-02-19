@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.9.25/paper-full.js">
+</script>
+<!-- <script type="text/javascript" src="myScript.js" canvas="myCanvas"></script> -->
+
+</head>
+<body>
+
+<script type="text/paperscript" canvas="canvas-2">// Create a raster item:
+var raster = new Raster('mona.png');
+var loaded = false;
+
+raster.on('load', function() {
+  loaded = true;
+  onResize();
+});
+
+// Make the raster invisible:
+raster.visible = false;
+
+var lastPos = view.center;
+function moveHandler(event) {
+  if (!loaded)
+    return;
+  if (lastPos.getDistance(event.point) < 10)
+    return;
+  lastPos = event.point;
+
+  var size = this.bounds.size.clone();
+  var isLandscape = size.width > size.height;
+
+  // If the path is in landscape orientation, we're going to
+  // split the path horizontally, otherwise vertically:
+
+  size /= isLandscape ? [2, 1] : [1, 2];
+
+  var path = new Path.Rectangle({
+    point: this.bounds.topLeft.floor(),
+    size: size.ceil(),
+    onMouseMove: moveHandler
+  });
+  path.fillColor = raster.getAverageColor(path);
+
+  var path = new Path.Rectangle({
+    point: isLandscape
+      ? this.bounds.topCenter.ceil()
+      : this.bounds.leftCenter.ceil(),
+    size: size.floor(),
+    onMouseMove: moveHandler
+  });
+  path.fillColor = raster.getAverageColor(path);
+
+  this.remove();
+}
+
+function onResize(event) {
+  if (!loaded)
+    return;
+  project.activeLayer.removeChildren();
+
+  // Transform the raster so that it fills the bounding rectangle
+  // of the view:
+  raster.fitBounds(view.bounds, true);
+
+  // Create a path that fills the view, and fill it with
+  // the average color of the raster:
+  new Path.Rectangle({
+    rectangle: view.bounds,
+    fillColor: raster.getAverageColor(view.bounds),
+    onMouseMove: moveHandler
+  });
+}
+</script>
+
+<canvas height="530" id="canvas-2" width="530"></canvas>
+<p>
+<img id="mona" style="visibility: hidden;" src="mona.png" width="530" height="530">
+</img>
+</p>
+</body>
+</html>
